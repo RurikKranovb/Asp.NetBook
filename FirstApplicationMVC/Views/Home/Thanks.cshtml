@@ -1,0 +1,28 @@
+﻿@model FirstApplicationMVC.Models.GuestResponse
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+
+<body class="text-center">
+<p>
+    <h1>Thank you, @Model.Name</h1>
+    @if (Model.WillAttend == true)
+    {
+        @:It's great than you are coming. The drinks are already in the fridge!
+    }
+    else
+    {
+        @: Sorry to hear that you can not make it, but thanks for letting us know.
+    }
+</p>
+<p>Click <a class="nav-link" asp-action="ListResponses">here</a> to see who is coming.</p>
+</body>
