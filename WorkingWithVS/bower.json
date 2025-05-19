@@ -1,0 +1,17 @@
+{
+  "name": "asp.net",
+  "homepage": "https://github.com/RurikKranovb/Asp.NetBook",
+  "authors": [
+    "bobrov.da <dmr.bobrov@yandex.ru>"
+  ],
+  "dependencies": {
+    "bootstrap": "4.5.3"
+  },  
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
