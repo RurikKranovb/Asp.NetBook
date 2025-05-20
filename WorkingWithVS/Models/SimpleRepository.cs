@@ -1,6 +1,6 @@
 ﻿namespace WorkingWithVS.Models
 {
-    public class SimpleRepository
+    public class SimpleRepository : IRepository
     {
         private static SimpleRepository _sharedRepository = new();
 
