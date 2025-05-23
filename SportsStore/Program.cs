@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using SportsStore.Models;
 
 namespace SportsStore
@@ -11,7 +12,16 @@ namespace SportsStore
             // Add services to the container.
             builder.Services.AddRazorPages();
 
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            builder.Services.AddDbContext<ApplicationDbContext>(opt =>
+                opt.UseSqlServer(connectionString));
+
             builder.Services.AddTransient<IProductRepository, FakeProductRepository>();
+
+            builder.Services.AddTransient<IProductRepository, EFProductRepository>();
+
+            builder.Services.AddTransient<SeedData>();
 
             var app = builder.Build();
 
@@ -37,11 +47,24 @@ namespace SportsStore
             app.MapRazorPages()
                .WithStaticAssets();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbInitializer = scope.ServiceProvider.GetRequiredService<SeedData>();
+
+                dbInitializer.EnsurePopulated(app);
+            }
+
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Product}/{action=List}/{id?}");
 
+            //SeedData.EnsurePopulated(app);
+
             app.Run();
+
+           
+
         }
     }
 }
