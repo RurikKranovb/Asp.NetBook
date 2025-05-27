@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -23,6 +24,11 @@ namespace SportsStore.Infrastructure
 
         public string PageAction { get; set; }
 
+        public bool PageClassesEnable { get; set; } = false;
+        public string PageClass { get; set; }
+        public string PageClassNormal { get; set; }
+        public string PageClassSelected { get; set; }
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             IUrlHelper urlHelper = _urlHelperFactory.GetUrlHelper(ViewContext);
@@ -31,6 +37,11 @@ namespace SportsStore.Infrastructure
             {
                 TagBuilder tag = new TagBuilder("a");
                 tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = i });
+                if (PageClassesEnable)
+                {
+                    tag.AddCssClass(PageClass);
+                    tag.AddCssClass(i == PagingModel.CurrentPage ? PageClassSelected : PageClassNormal);
+                }
                 tag.InnerHtml.AppendHtml(tag);
             }
 
