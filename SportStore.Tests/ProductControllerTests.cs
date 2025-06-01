@@ -139,7 +139,5 @@ namespace SportStore.Tests
             Assert.Equal(5,resAll);
         }
 
-
-
     }
 }
