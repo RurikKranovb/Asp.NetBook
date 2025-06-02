@@ -24,6 +24,11 @@ namespace SportsStore
 
             builder.Services.AddTransient<SeedData>();
 
+            builder.Services.AddMemoryCache();
+            builder.Services.AddSession();
+            
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -41,6 +46,7 @@ namespace SportsStore
             app.UseStaticFiles();
             app.UseStatusCodePages();
             app.UseDeveloperExceptionPage();
+
 
             app.UseAuthorization();
 
