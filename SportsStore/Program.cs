@@ -24,6 +24,10 @@ namespace SportsStore
 
             builder.Services.AddTransient<SeedData>();
 
+            builder.Services.AddScoped<Cart>(provider => SessionCart.GetCart(provider));
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddTransient<IOrderRepository, EFOrderRepository>();
+
             builder.Services.AddMemoryCache();
             builder.Services.AddSession();
             
@@ -40,7 +44,7 @@ namespace SportsStore
             }
 
             app.UseHttpsRedirection();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseStaticFiles();
