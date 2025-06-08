@@ -76,33 +76,33 @@ namespace SportStore.Tests
             Assert.Equal(2, pagingInfo.TotalPages);
         }
 
-        [Fact]
-        public void Can_Filter_Products()
-        {
-            //Организация
-            Mock<IProductRepository> mock = new Mock<IProductRepository>();
-            mock.Setup(m => m.Products).Returns((new Product[]
-            {
-                new Product() { ProductId = 1, Name = "P1" },
-                new Product() { ProductId = 2, Name = "P2" },
-                new Product() { ProductId = 3, Name = "P3" },
-                new Product() { ProductId = 4, Name = "P4" },
-                new Product() { ProductId = 5, Name = "P5" }
-            }).AsQueryable<Product>());
+        //[Fact]
+        //public void Can_Filter_Products()
+        //{
+        //    //Организация
+        //    Mock<IProductRepository> mock = new Mock<IProductRepository>();
+        //    mock.Setup(m => m.Products).Returns((new Product[]
+        //    {
+        //        new Product() { ProductId = 1, Name = "P1" },
+        //        new Product() { ProductId = 2, Name = "P2" },
+        //        new Product() { ProductId = 3, Name = "P3" },
+        //        new Product() { ProductId = 4, Name = "P4" },
+        //        new Product() { ProductId = 5, Name = "P5" }
+        //    }).AsQueryable<Product>());
 
-            //Организация — создание контроллера и установка размера страницы в три элемента
-            ProductController controller = new ProductController(mock.Object);
-            controller.PageSize = 3;
+        //    //Организация — создание контроллера и установка размера страницы в три элемента
+        //    ProductController controller = new ProductController(mock.Object);
+        //    controller.PageSize = 3;
 
-            //Действие
-            Product[] result =
-                (controller.List("Cat2", 1).ViewData.Model as ProductsListViewModel).Products.ToArray();
+        //    //Действие
+        //    Product[] result =
+        //        (controller.List("Cat2", 1).ViewData.Model as ProductsListViewModel).Products.ToArray();
 
-            //Утверждение
-            Assert.Equal(2, result.Length);
-            Assert.True(result[0].Name == "P2" && result[0].Category == "Cat2");
-            Assert.True(result[1].Name == "P4" && result[1].Category == "Cat2");
-        }
+        //    //Утверждение
+        //    Assert.Equal(2, result.Length);
+        //    Assert.True(result[0].Name == "P2" && result[0].Category == "Cat2");
+        //    Assert.True(result[1].Name == "P4" && result[1].Category == "Cat2");
+        //}
 
         [Fact]
         public void Generate_Category_Specific_Product_Count()

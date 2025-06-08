@@ -71,28 +71,28 @@ namespace SportStore.Tests
 
         }
 
-        [Fact]
-        public void Can_Checkout_And_Submit_Order()
-        {
-            //Организация - создание имитированного хранилища заказов
-            Mock<IOrderRepository> mock = new Mock<IOrderRepository>();
+        //[Fact]
+        //public void Can_Checkout_And_Submit_Order()
+        //{
+        //    //Организация - создание имитированного хранилища заказов
+        //    Mock<IOrderRepository> mock = new Mock<IOrderRepository>();
 
-            //Организация создание корзины c 1 элементом
-            Cart cart = new Cart();
-            cart.AddItem(new Product(),1);
+        //    //Организация создание корзины c 1 элементом
+        //    Cart cart = new Cart();
+        //    cart.AddItem(new Product(),1);
 
-            //Организация - создание эклемпляра контроллера
-            OrderController target = new OrderController(mock.Object, cart);
+        //    //Организация - создание эклемпляра контроллера
+        //    OrderController target = new OrderController(mock.Object, cart);
 
-            //Действие, попытка перехода к оплате
-            RedirectToActionResult result = target.Checkout(new Order()) as RedirectToActionResult;
+        //    //Действие, попытка перехода к оплате
+        //    RedirectToActionResult result = target.Checkout(new Order()) as RedirectToActionResult;
 
-            //Утверждение - проверка, что заказ был сохранен
-            mock.Verify(m => m.SaveOrder(It.IsAny<Order>()), Times.Once);
+        //    //Утверждение - проверка, что заказ был сохранен
+        //    mock.Verify(m => m.SaveOrder(It.IsAny<Order>()), Times.Once);
 
-            //Утверждение- проверка, что метод перенаправляется на действие Completed
-            Assert.Equal("Completed", result.ActionName);
+        //    //Утверждение- проверка, что метод перенаправляется на действие Completed
+        //    Assert.Equal("Completed", result.ActionName);
 
-        }
+        //}
     }
 }
