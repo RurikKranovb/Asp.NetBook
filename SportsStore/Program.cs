@@ -18,7 +18,7 @@ namespace SportsStore
             builder.Services.AddDbContext<ApplicationDbContext>(opt =>
                 opt.UseSqlServer(connectionString));
 
-            builder.Services.AddTransient<IProductRepository, FakeProductRepository>();
+            //builder.Services.AddTransient<IProductRepository, FakeProductRepository>();
 
             builder.Services.AddTransient<IProductRepository, EFProductRepository>();
 
