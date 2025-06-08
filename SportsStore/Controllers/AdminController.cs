@@ -13,5 +13,9 @@ namespace SportsStore.Controllers
         }
 
         public ViewResult Index() => View(_repository.Products);
+
+        public ViewResult Edit(int productId) =>
+            View(_repository.Products
+                .FirstOrDefault(p => p.ProductId == productId));
     }
 }
