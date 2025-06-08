@@ -9,18 +9,22 @@
     <input type="hidden" asp-for="ProductId"/>
     <div class="form-control-sm">
         <label asp-for="Name"></label>
+        <div><span asp-validation-for="Name" class="text-danger"></span></div>
         <input asp-for="Name"/>
     </div>
     <div class="form-control-sm">
         <label asp-for="Description"></label>
-        <textarea asp-for="Description" ></textarea>
+        <div><span asp-validation-for="Description" class="text-danger"></span></div>
+        <textarea asp-for="Description"></textarea>
     </div>
     <div class="form-control-sm">
         <label asp-for="Category"></label>
+        <div><span asp-validation-for="Category" class="text-danger"></span></div>
         <input asp-for="Category" />
     </div>
     <div class="form-control-sm">
         <label asp-for="Price"></label>
+        <div><span asp-validation-for="Price" class="text-danger"></span></div>
         <input asp-for="Price" />
     </div>
     <div class="text-center">

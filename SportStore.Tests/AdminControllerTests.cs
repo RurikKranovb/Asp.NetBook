@@ -150,5 +150,34 @@ namespace SportStore.Tests
             Assert.IsType<ViewResult>(result);
 
         }
+
+        [Fact]
+        public void Can_Delete_Valid_Products()
+        {
+            //Организация - создание объекта Product
+            Product prod = new Product() { ProductId = 2, Name = "Test" };
+
+            //Организация - создание имитированного хранилища
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+
+            mock.Setup(m => m.Products)
+                .Returns((new Product[]
+                {
+                    new Product() { ProductId = 1, Name = "P1"},
+                    prod,
+                    new Product() { ProductId = 3, Name = "P3"},
+
+                }).AsQueryable<Product>());
+
+            //Организация - создание контроллера
+            AdminController target = new AdminController(mock.Object);
+
+            //Действие - удаление товара
+            target.Delete((int)prod.ProductId);
+
+            //Утверждение - проверка того, что был вызван метод удаления в хранилище с корректным объектом Product
+            mock.Verify(m=>m.DeleteProduct((int)prod.ProductId));
+
+        }
     }
 }
