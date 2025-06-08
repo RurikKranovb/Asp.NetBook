@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SportsStore.Models;
@@ -17,6 +18,16 @@ namespace SportsStore
 
             builder.Services.AddDbContext<ApplicationDbContext>(opt =>
                 opt.UseSqlServer(connectionString));
+
+            var identity = builder.Configuration.GetConnectionString("IdentityString");
+
+            builder.Services.AddDbContext<AppIdentityDbContext>(opt =>
+                opt.UseSqlServer(identity));
+
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddDefaultTokenProviders();
+
 
             //builder.Services.AddTransient<IProductRepository, FakeProductRepository>();
 
@@ -51,7 +62,7 @@ namespace SportsStore
             app.UseStatusCodePages();
             app.UseDeveloperExceptionPage();
 
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();
