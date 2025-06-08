@@ -147,7 +147,7 @@ namespace SportStore.Tests
             mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never);
 
             //Утверждение - проверка типа результата метода
-            Assert.IsType<ViewResult>(result)
+            Assert.IsType<ViewResult>(result);
 
         }
     }
