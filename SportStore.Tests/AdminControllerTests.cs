@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
 using SportsStore.Controllers;
 using SportsStore.Models;
@@ -93,6 +94,61 @@ namespace SportStore.Tests
 
             //Утверждение
             Assert.Null(result);
+        }
+
+        [Fact]
+        public void Can_Save_Valid_Changes()
+        {
+            //Организация
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+
+          //Организация - создание имитированных временных данных
+          Mock<ITempDataDictionary> tempData = new Mock<ITempDataDictionary>();
+
+          //Организация - создание контроллера
+          AdminController target = new AdminController(mock.Object)
+          {
+              TempData = tempData.Object
+          };
+
+          //Организация - создание товара
+          Product product = new Product() { Name = "Test" };
+
+          //Действие - попытка сохранить товар
+          IActionResult result = target.Edit(product);
+
+          //Утверждение - проверка того, что к хранилищу было произведено обращение
+          mock.Verify(m => m.SaveProduct(product));
+
+          //Утверждение - проверка, что типом результата является перенаправление
+          Assert.IsType<RedirectToActionResult>(result);
+          Assert.Equal("Index", (result as RedirectToActionResult).ActionName);
+        }
+
+        [Fact]
+        public void Cannot_Save_Invalid_Changes()
+        {
+            //Организация - создание имитированного хранилища
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+
+            //Организация - создание контроллера
+            AdminController target = new AdminController(mock.Object);
+
+            //Организация - создание товара
+            Product product = new Product() { Name = "Test" };
+
+            //Организация - добавление ошибки в состояние модели
+            target.ModelState.AddModelError("error", "error");
+
+            //Действие - попытка сохранить товар
+            IActionResult result = target.Edit(product);
+
+            //Утверждение - проверка того, что к хранилищу было произведено обращение
+            mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never);
+
+            //Утверждение - проверка типа результата метода
+            Assert.IsType<ViewResult>(result)
+
         }
     }
 }
