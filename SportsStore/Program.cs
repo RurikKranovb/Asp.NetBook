@@ -113,9 +113,9 @@ namespace SportsStore
 
             });
 
+            IdentitySeedData.EnsurePopulated(app);
+
             app.Run();
-
-
 
         }
     }
