@@ -67,10 +67,10 @@ namespace ConfiguringApps
                 app.MapRazorPages()
                     .WithStaticAssets();
 
-                app.UseMiddleware<ErrorMiddleware>();
-                app.UseMiddleware<BrowserTypeMiddleware>();
-                app.UseMiddleware<ShortCircuitMiddleware>();
-                app.UseMiddleware<ContentMiddleware>();
+                app.UseMiddleware<ErrorMiddleware>(); // ПО для редактирования ответов
+                app.UseMiddleware<BrowserTypeMiddleware>();// ПО для редактирования запросов
+                app.UseMiddleware<ShortCircuitMiddleware>();// промежуточное ПО 
+                app.UseMiddleware<ContentMiddleware>();// промежуточное ПО для генерации содержимого
 
 
                 app.MapControllerRoute(
