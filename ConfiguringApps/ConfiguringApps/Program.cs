@@ -67,6 +67,7 @@ namespace ConfiguringApps
                 app.MapRazorPages()
                     .WithStaticAssets();
 
+                app.UseMiddleware<ErrorMiddleware>();
                 app.UseMiddleware<BrowserTypeMiddleware>();
                 app.UseMiddleware<ShortCircuitMiddleware>();
                 app.UseMiddleware<ContentMiddleware>();
