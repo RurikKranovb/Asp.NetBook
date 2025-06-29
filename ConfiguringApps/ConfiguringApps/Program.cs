@@ -9,6 +9,7 @@ namespace ConfiguringApps
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
             builder.Services.AddRazorPages();
 
             builder.Services.AddSingleton<UpTimeService>();
@@ -20,13 +21,29 @@ namespace ConfiguringApps
                     .UseContentRoot(Directory.GetCurrentDirectory())
                     .ConfigureAppConfiguration((hostingContext, config) =>
                     {
+
+                        var env = hostingContext.HostingEnvironment;
+
                         config.AddJsonFile("appsettings.json",
-                            optional: true, reloadOnChange: true);
+                                optional: true, reloadOnChange: true)
+                            .AddJsonFile($"appsettings.{env.EnvironmentName}.json",
+                                optional: true, reloadOnChange: true);
                         config.AddEnvironmentVariables();
                         if (args != null)
                         {
                             config.AddCommandLine(args);
                         }
+                    })
+                    .ConfigureLogging((hostingContext, logging) =>
+                    {
+                        logging.AddConfiguration(
+                            hostingContext.Configuration.GetSection("Logging"));
+                        logging.AddConsole();
+                        logging.AddDebug();
+                    })
+                    .UseDefaultServiceProvider((context, options) =>
+                    {
+                        options.ValidateScopes = context.HostingEnvironment.IsDevelopment();
                     })
                     .UseIISIntegration();
 
@@ -70,7 +87,7 @@ namespace ConfiguringApps
 
                 #endregion
 
-                
+
 
                 var app = builder.Build();
 
@@ -85,13 +102,13 @@ namespace ConfiguringApps
                     if (builder.Configuration.GetSection("ShortCircuitMiddleware")
                         .GetValue<bool>("EnableBrowserShortCircuit"))
                     {
-                        app.UseMiddleware<BrowserTypeMiddleware>();// ПО для редактирования запросов
-                        app.UseMiddleware<ShortCircuitMiddleware>();// промежуточное ПО 
+                        app.UseMiddleware<BrowserTypeMiddleware>(); // ПО для редактирования запросов
+                        app.UseMiddleware<ShortCircuitMiddleware>(); // промежуточное ПО 
                     }
 
 
                     //app.UseMiddleware<ErrorMiddleware>(); // ПО для редактирования ответов
-                
+
                     //app.UseMiddleware<ContentMiddleware>();// промежуточное ПО для генерации содержимого
                 }
                 else
@@ -110,5 +127,27 @@ namespace ConfiguringApps
                 app.Run();
             });
         }
+
+        //public void ConfigureDevelopmentServices(IServiceCollection services)
+        //{
+        //    services.AddSingleton<UpTimeService>();
+        //    services.AddRazorPages();
+        //}
+
+        //public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
+        //{
+        //    app.UseExceptionHandler("Home/Error");
+        //    app.UseStaticFiles();
+        //    app.UseRouting();
+        //}
+
+        //public void ConfigureDevelopment(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
+        //{
+
+        //    app.UseDeveloperExceptionPage();
+        //    app.UseStatusCodePages();
+        //    app.UseStaticFiles();
+        //    app.UseRouting();
+        //}
     }
 }

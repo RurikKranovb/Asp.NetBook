@@ -6,14 +6,19 @@ namespace ConfiguringApps.Controllers
     public class HomeController : Controller
     {
         private UpTimeService _upTime;
+        private readonly ILogger<HomeController> _log;
 
-        public HomeController(UpTimeService up) => _upTime = up;
-
-
+        public HomeController(UpTimeService up, ILogger<HomeController> log)
+        {
+            _upTime = up;
+            _log = log;
+        }
 
 
         public ViewResult Index(bool throwException = false)
         {
+            _log.LogDebug($"Handled {Request.Path} at uptime {_upTime.UpTime}");
+
             if (throwException)
             {
                 throw new System.NullReferenceException();
