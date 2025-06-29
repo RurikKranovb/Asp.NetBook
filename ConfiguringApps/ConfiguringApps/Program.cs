@@ -18,6 +18,16 @@ namespace ConfiguringApps
                 new WebHostBuilder()
                     .UseKestrel()
                     .UseContentRoot(Directory.GetCurrentDirectory())
+                    .ConfigureAppConfiguration((hostingContext, config) =>
+                    {
+                        config.AddJsonFile("appsettings.json",
+                            optional: true, reloadOnChange: true);
+                        config.AddEnvironmentVariables();
+                        if (args != null)
+                        {
+                            config.AddCommandLine(args);
+                        }
+                    })
                     .UseIISIntegration();
 
                 #region MyRegion
@@ -60,7 +70,7 @@ namespace ConfiguringApps
 
                 #endregion
 
-
+                
 
                 var app = builder.Build();
 
@@ -69,12 +79,27 @@ namespace ConfiguringApps
 
                 if (builder.Environment.IsDevelopment())
                 {
-                    app.UseMiddleware<ErrorMiddleware>(); // ПО для редактирования ответов
-                    app.UseMiddleware<BrowserTypeMiddleware>();// ПО для редактирования запросов
-                    app.UseMiddleware<ShortCircuitMiddleware>();// промежуточное ПО 
-                    app.UseMiddleware<ContentMiddleware>();// промежуточное ПО для генерации содержимого
-                }
+
+                    app.UseDeveloperExceptionPage();
+                    app.UseStatusCodePages();
+                    if (builder.Configuration.GetSection("ShortCircuitMiddleware")
+                        .GetValue<bool>("EnableBrowserShortCircuit"))
+                    {
+                        app.UseMiddleware<BrowserTypeMiddleware>();// ПО для редактирования запросов
+                        app.UseMiddleware<ShortCircuitMiddleware>();// промежуточное ПО 
+                    }
+
+
+                    //app.UseMiddleware<ErrorMiddleware>(); // ПО для редактирования ответов
                 
+                    //app.UseMiddleware<ContentMiddleware>();// промежуточное ПО для генерации содержимого
+                }
+                else
+                {
+                    app.UseExceptionHandler("Home/Error");
+                }
+
+                app.UseStaticFiles();
 
 
                 app.MapControllerRoute(
