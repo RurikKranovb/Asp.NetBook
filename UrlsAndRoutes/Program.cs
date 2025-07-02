@@ -14,7 +14,11 @@ namespace UrlsAndRoutes
             app.UseStaticFiles();
             app.MapRazorPages();
 
-            app.MapGet("/", () => "Hello World!");
+
+            app.MapControllerRoute(
+
+                name: "default",
+                pattern: "{controller}/{action=Index}");
 
             app.Run();
         }
