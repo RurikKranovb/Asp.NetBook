@@ -18,5 +18,18 @@ namespace UrlsAndRoutes.Controllers
                 Controller = nameof(CustomerController),
                 Action = nameof(List)
             });
+
+        public ViewResult List(string? id)
+        {
+            Result r = new Result()
+            {
+                Controller = nameof(HomeController),
+                Action = nameof(HomeController),
+            };
+
+            r.Data["id"] = id ?? "<no value>";
+            r.Data["catchall"] = RouteData.Values["catchall"];
+            return View("Result", r);
+        }
     }
 }

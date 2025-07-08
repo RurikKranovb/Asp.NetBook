@@ -22,17 +22,28 @@ namespace UrlsAndRoutes
             {
 
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/Shop/{action=Index}");
+                    name: "MyRoute",
+                    pattern: "{controller=Home}/{action=Index}/{id?}/{*catchall}");
+
+                //endpoints.MapControllerRoute(
+                //    name: "default",
+                //    pattern: "Shop/OldAction",
+                //    defaults: new { controller = "Home", action = "Index" });
 
 
-                endpoints.MapControllerRoute(
-                    name: "",
-                    pattern: "Public/{controller=Home}/{action=Index}/{id?}");
+                //endpoints.MapControllerRoute(
+                //    name: "default",
+                //    pattern: "Shop/{action=Index}",
+                //    defaults: new {controller = "Home"});
 
-                endpoints.MapControllerRoute(
-                    name: "",
-                    pattern: "X{controller=Home}/{action=Index}/{id?}");
+
+                //endpoints.MapControllerRoute(
+                //    name: "",
+                //    pattern: "Public/{controller=Home}/{action=Index}/{id?}");
+
+                //endpoints.MapControllerRoute(
+                //    name: "",
+                //    pattern: "X{controller=Home}/{action=Index}/{id?}");
 
 
             });
