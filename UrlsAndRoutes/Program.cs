@@ -14,11 +14,28 @@ namespace UrlsAndRoutes
             app.UseStaticFiles();
             app.MapRazorPages();
 
+            app.UseRouting();
 
-            app.MapControllerRoute(
 
-                name: "default",
-                pattern: "{controller}/{action=Index}");
+
+            app.UseEndpoints(endpoints =>
+            {
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/Shop/{action=Index}");
+
+
+                endpoints.MapControllerRoute(
+                    name: "",
+                    pattern: "Public/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "",
+                    pattern: "X{controller=Home}/{action=Index}/{id?}");
+
+
+            });
 
             app.Run();
         }
