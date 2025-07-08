@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Routing.Constraints;
+using UrlsAndRoutes.Infrastructure;
+
 namespace UrlsAndRoutes
 {
     public class Program
@@ -23,7 +26,21 @@ namespace UrlsAndRoutes
 
                 endpoints.MapControllerRoute(
                     name: "MyRoute",
-                    pattern: "{controller=Home}/{action=Index}/{id?}/{*catchall}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}",
+                    constraints: new { id = new WeekDayConstraint() });
+
+                //endpoints.MapControllerRoute(
+                //    name: "MyRoute",
+                //    pattern: "{controller:regex(^H.*)=Home}/{action:regex(^Index$|^About$)=Index}/{id:int?}");
+
+                //endpoints.MapControllerRoute(
+                //    name: "MyRoute",
+                //    pattern: "{controller=Home}/{action=Index}",
+                //    constraints: new {id = new IntRouteConstraint()});
+
+                //endpoints.MapControllerRoute(
+                //    name: "MyRoute",
+                //    pattern: "{controller=Home}/{action=Index}/{id:int?}");
 
                 //endpoints.MapControllerRoute(
                 //    name: "default",
