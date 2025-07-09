@@ -12,7 +12,11 @@ namespace UrlsAndRoutes
             builder.Services.AddRazorPages();
 
             builder.Services.Configure<RouteOptions>(options =>
-                options.ConstraintMap.Add("weekday", typeof(WeekDayConstraint)));
+            {
+                options.ConstraintMap.Add("weekday", typeof(WeekDayConstraint));
+                options.LowercaseUrls = true;
+                options.AppendTrailingSlash = true;
+            });
 
             var app = builder.Build();
             app.UseDeveloperExceptionPage();
@@ -22,8 +26,25 @@ namespace UrlsAndRoutes
 
             app.UseRouting();
 
-            app.MapDefaultControllerRoute();
+            //app.MapDefaultControllerRoute();
+            app.UseEndpoints(endpoints =>
+            {
+                //endpoints.MapControllerRoute(
+                //    name: "NewRoute",
+                //    pattern:"App/Do{action}",
+                //    defaults: new {controller = "Home"}
+                //);
 
+                endpoints.MapControllerRoute(
+                    name: "",
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
+                    );
+
+                endpoints.MapControllerRoute(
+                    name: "out",
+                    pattern: "outbound/{controller=Home}/{action=Index}"
+                );
+            });
             //app.UseEndpoints(endpoints =>
             //{
 

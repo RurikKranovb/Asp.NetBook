@@ -12,15 +12,26 @@
 </head>
 
 <body class="m-1 p-1">
-    <table class="table table-bordered table-striped table-sm">
-        <tr><th>Controller:</th><td>@Model.Controller</td></tr>
-        <tr><th>Action:</th><td>@Model.Action</td></tr>
+<table class="table table-bordered table-striped table-sm">
+    <tr><th>Controller:</th><td>@Model.Controller</td></tr>
+    <tr><th>Action:</th><td>@Model.Action</td></tr>
 
-        @foreach (var key in Model.Data.Keys)
-        {
-            <tr><th>@key:</th><td>@Model.Data[key]</td></tr>
-        }
-    </table>
+    @foreach (var key in Model.Data.Keys)
+    {
+        <tr><th>@key:</th><td>@Model.Data[key]</td></tr>
+    }
+</table>
+@* <a asp-controller="Home" asp-action="Index" asp-route-id="Hello" >This is an outgoing URL</a> *@
+@* <a asp-controller="Home" asp-action="Index" asp-route-id="Hello"
+   asp-protocol="https" asp-host="myserver.mydomain.com"
+   asp-fragment="myFragment">
+    This is an outgoing URL
+</a> *@
+
+@*     <a asp-controller="Home" asp-action="CustomVariable">This is an outgoing URL</a>
+    <a asp-route="out">This is an outgoing URL</a> *@
+
+<p>URL: @Url.Action("CustomVariable", "Home" , new {id = 100})</p>
 </body>
 
 </html>
