@@ -11,6 +11,9 @@ namespace UrlsAndRoutes
 
             builder.Services.AddRazorPages();
 
+            builder.Services.Configure<RouteOptions>(options =>
+                options.ConstraintMap.Add("weekday", typeof(WeekDayConstraint)));
+
             var app = builder.Build();
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
@@ -19,51 +22,55 @@ namespace UrlsAndRoutes
 
             app.UseRouting();
 
+            app.MapDefaultControllerRoute();
+
+            //app.UseEndpoints(endpoints =>
+            //{
+
+            //    //endpoints.MapControllerRoute(
+            //    //    name: "MyRoute",
+            //    //    pattern: "{controller=Home}/{action=Index}/{id:weekday}");
+
+            //    //endpoints.MapControllerRoute(
+            //    //    name: "MyRoute",
+            //    //    pattern: "{controller=Home}/{action=Index}/{id?}",
+            //    //    constraints: new { id = new WeekDayConstraint() });
+
+            //    //endpoints.MapControllerRoute(
+            //    //    name: "MyRoute",
+            //    //    pattern: "{controller:regex(^H.*)=Home}/{action:regex(^Index$|^About$)=Index}/{id:int?}");
+
+            //    //endpoints.MapControllerRoute(
+            //    //    name: "MyRoute",
+            //    //    pattern: "{controller=Home}/{action=Index}",
+            //    //    constraints: new {id = new IntRouteConstraint()});
+
+            //    //endpoints.MapControllerRoute(
+            //    //    name: "MyRoute",
+            //    //    pattern: "{controller=Home}/{action=Index}/{id:int?}");s
+
+            //    //endpoints.MapControllerRoute(
+            //    //    name: "default",
+            //    //    pattern: "Shop/OldAction",
+            //    //    defaults: new { controller = "Home", action = "Index" });
 
 
-            app.UseEndpoints(endpoints =>
-            {
-
-                endpoints.MapControllerRoute(
-                    name: "MyRoute",
-                    pattern: "{controller=Home}/{action=Index}/{id?}",
-                    constraints: new { id = new WeekDayConstraint() });
-
-                //endpoints.MapControllerRoute(
-                //    name: "MyRoute",
-                //    pattern: "{controller:regex(^H.*)=Home}/{action:regex(^Index$|^About$)=Index}/{id:int?}");
-
-                //endpoints.MapControllerRoute(
-                //    name: "MyRoute",
-                //    pattern: "{controller=Home}/{action=Index}",
-                //    constraints: new {id = new IntRouteConstraint()});
-
-                //endpoints.MapControllerRoute(
-                //    name: "MyRoute",
-                //    pattern: "{controller=Home}/{action=Index}/{id:int?}");
-
-                //endpoints.MapControllerRoute(
-                //    name: "default",
-                //    pattern: "Shop/OldAction",
-                //    defaults: new { controller = "Home", action = "Index" });
+            //    //endpoints.MapControllerRoute(
+            //    //    name: "default",
+            //    //    pattern: "Shop/{action=Index}",
+            //    //    defaults: new {controller = "Home"});
 
 
-                //endpoints.MapControllerRoute(
-                //    name: "default",
-                //    pattern: "Shop/{action=Index}",
-                //    defaults: new {controller = "Home"});
+            //    //endpoints.MapControllerRoute(
+            //    //    name: "",
+            //    //    pattern: "Public/{controller=Home}/{action=Index}/{id?}");
+
+            //    //endpoints.MapControllerRoute(
+            //    //    name: "",
+            //    //    pattern: "X{controller=Home}/{action=Index}/{id?}");
 
 
-                //endpoints.MapControllerRoute(
-                //    name: "",
-                //    pattern: "Public/{controller=Home}/{action=Index}/{id?}");
-
-                //endpoints.MapControllerRoute(
-                //    name: "",
-                //    pattern: "X{controller=Home}/{action=Index}/{id?}");
-
-
-            });
+            //});
 
             app.Run();
         }
