@@ -1,0 +1,22 @@
+﻿@model Person[]
+@{ Layout = null;}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Routing</title>
+    <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
+</head>
+
+<body class="m-1 p-1">
+<table class="table table-bordered table-striped table-sm">
+    <tr><th>Name</th><th>City</th></tr>
+    @foreach (var person in Model)
+    {
+        <tr><td>@person.Name</td><td>@person.City</td></tr>
+    }
+</table>
+    <a asp-action="Index" asp-controller="Home">Link</a>
+    <a asp-action="Index" asp-controller="Home" asp-route-area="">Link</a>
+</body>

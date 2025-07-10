@@ -36,6 +36,11 @@ namespace UrlsAndRoutes
                 //);
 
                 endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}"
+                );
+
+                endpoints.MapControllerRoute(
                     name: "",
                     pattern: "{controller=Home}/{action=Index}/{id?}"
                     );
@@ -44,6 +49,8 @@ namespace UrlsAndRoutes
                     name: "out",
                     pattern: "outbound/{controller=Home}/{action=Index}"
                 );
+
+             
             });
             //app.UseEndpoints(endpoints =>
             //{
