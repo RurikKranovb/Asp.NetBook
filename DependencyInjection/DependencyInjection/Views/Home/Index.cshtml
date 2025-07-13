@@ -1,0 +1,26 @@
+﻿@model IEnumerable<DependencyInjection.Models.Product>
+
+<body class="m-1 p-1">
+@if (ViewData.Count > 0)
+{
+    <table class="table table-bordered">
+        @foreach (var kvp in ViewData)
+        {
+            <tr><td>@kvp.Key</td><td>@kvp.Value</td></tr>
+        }
+    </table>
+}
+
+<table class="table">
+    <thead>
+    <tr><th>Name</th><th>Price</th></tr>
+    </thead>
+    
+    <tbody>
+    @if (Model == null)
+    {
+        <tr><td>No model</td></tr>
+    }
+    </tbody>
+</table>
+</body>
