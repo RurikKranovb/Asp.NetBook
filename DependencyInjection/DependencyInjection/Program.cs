@@ -1,3 +1,6 @@
+using DependencyInjection.Infrastructure;
+using DependencyInjection.Models;
+
 namespace DependencyInjection
 {
     public class Program
@@ -8,6 +11,8 @@ namespace DependencyInjection
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+
+            TypeBroker.SetRepositoryType<AlternateRepository>();
 
             var app = builder.Build();
 

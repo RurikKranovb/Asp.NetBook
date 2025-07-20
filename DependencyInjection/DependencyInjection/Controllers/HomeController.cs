@@ -6,7 +6,7 @@ namespace DependencyInjection.Controllers
 {
     public class HomeController : Controller
     {
-        public IRepository Repository { get; set; } = new MemoryRepository();
+        public IRepository Repository { get; } = TypeBroker.Repository;
 
 
         public ViewResult Index() => View(Repository.Products);

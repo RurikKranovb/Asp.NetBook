@@ -17,7 +17,8 @@ namespace DependencyInjection.Tests
             var mock = new Mock<IRepository>();
             mock.SetupGet(m => m.Products).Returns(data);
 
-            HomeController controller = new HomeController(){Repository = mock.Object};
+            TypeBroker.SetTestObject(mock.Object);
+            HomeController controller = new HomeController() { };
 
             //Действие
             ViewResult result = controller.Index();
