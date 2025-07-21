@@ -14,6 +14,25 @@ namespace DependencyInjection
 
             TypeBroker.SetRepositoryType<AlternateRepository>();
 
+            builder.Services.AddTransient<IRepository>(provider =>
+            {
+                if (builder.Environment.IsDevelopment())
+                {
+                    var x = provider.GetService<MemoryRepository>();
+                    return x;
+                }
+                else
+                {
+                    return new AlternateRepository();
+                }
+             
+            });
+
+            builder.Services.AddTransient<MemoryRepository>();
+            builder.Services.AddTransient<IModelStorage,DictionaryStorage>();
+            builder.Services.AddTransient<ProductTotalizer>();
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
