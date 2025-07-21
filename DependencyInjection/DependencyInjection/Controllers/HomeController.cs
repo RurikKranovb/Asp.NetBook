@@ -17,11 +17,18 @@ namespace DependencyInjection.Controllers
         }
 
 
-        public ViewResult Index()
+        public ViewResult Index([FromServices] ProductTotalizer totalizer)
         {
+            //IRepository repository = HttpContext.RequestServices.GetService<IRepository>(); //LOCATOR SERVICE
             ViewBag.HomeController = _repository.ToString();
-            ViewBag.Totalizer = _productTotalizer.Repository.ToString();
-             return View(_repository.Products);
+            ViewBag.Totalizer = totalizer.Repository.ToString();
+            return View(_repository.Products);
         }
+        //public ViewResult Index()
+        //{
+        //    ViewBag.HomeController = _repository.ToString();
+        //    ViewBag.Totalizer = _productTotalizer.Repository.ToString();
+        //     return View(_repository.Products);
+        //}
     }
 }

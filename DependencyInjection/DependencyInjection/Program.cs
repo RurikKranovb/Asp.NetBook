@@ -14,21 +14,21 @@ namespace DependencyInjection
 
             TypeBroker.SetRepositoryType<AlternateRepository>();
 
-            builder.Services.AddTransient<IRepository>(provider =>
-            {
-                if (builder.Environment.IsDevelopment())
-                {
-                    var x = provider.GetService<MemoryRepository>();
-                    return x;
-                }
-                else
-                {
-                    return new AlternateRepository();
-                }
+            //builder.Services.AddTransient<IRepository>(provider =>
+            //{
+            //    if (builder.Environment.IsDevelopment())
+            //    {
+            //        var x = provider.GetService<MemoryRepository>();
+            //        return x;
+            //    }
+            //    else
+            //    {
+            //        return new AlternateRepository();
+            //    }
              
-            });
+            //});
 
-            builder.Services.AddTransient<MemoryRepository>();
+            builder.Services.AddSingleton<IRepository,MemoryRepository>();
             builder.Services.AddTransient<IModelStorage,DictionaryStorage>();
             builder.Services.AddTransient<ProductTotalizer>();
 
