@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Filters.Controllers
 {
 
-    [HttpsOnly]
+    //[HttpsOnly]
+    [Profile]
     public class HomeController : Controller
     {
 
