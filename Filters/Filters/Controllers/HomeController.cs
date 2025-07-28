@@ -8,7 +8,9 @@ namespace Filters.Controllers
 
     //[ViewResultDetails]
     //[Profile]
-    [RangeException]
+    //[RangeException]
+    [TypeFilter(typeof(DiagnosticsFilter))]
+    [TypeFilter(typeof(TimerFilter))]
     public class HomeController : Controller
     {
 
