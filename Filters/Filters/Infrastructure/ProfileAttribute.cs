@@ -6,6 +6,32 @@ namespace Filters.Infrastructure
 {
     public class ProfileAttribute : ActionFilterAttribute
     {
+        private Stopwatch _timer;
+        private double _actionTime;
+
+        public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        {
+            _timer = Stopwatch.StartNew();
+            await next();
+
+            _actionTime = _timer.Elapsed.TotalMilliseconds;
+        }
+
+        public override async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
+        {
+            await next();
+
+            _timer.Stop();
+            string result = $"<div>Elapsed time: {_timer.Elapsed.TotalMilliseconds} ms<div>";
+
+            byte[] bytes = Encoding.ASCII.GetBytes(result);
+            await context.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length);
+
+        }
+
+
+        //------------------------------------------------
+
         //private Stopwatch _timer;
 
         //public override void OnActionExecuting(ActionExecutingContext context)
@@ -21,19 +47,19 @@ namespace Filters.Infrastructure
         //    byte[] bytes = Encoding.ASCII.GetBytes(result);
         //    context.HttpContext.Response.Body.WriteAsync(bytes,0,bytes.Length);
         //}
+        //------------------------------------------------
+        //public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        //{
+        //    Stopwatch timer = Stopwatch.StartNew();
+        //    await next();
 
-        public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
-        {
-            Stopwatch timer = Stopwatch.StartNew();
-            await next();
+        //    timer.Stop();
+        //    string result = $"<div>Elapsed time: {timer.Elapsed.TotalMilliseconds} ms<div>";
 
-            timer.Stop();
-            string result = $"<div>Elapsed time: {timer.Elapsed.TotalMilliseconds} ms<div>";
-
-            byte[] bytes = Encoding.ASCII.GetBytes(result);
-            await context.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length);
+        //    byte[] bytes = Encoding.ASCII.GetBytes(result);
+        //    await context.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length);
 
 
-        }
+        //}
     }
 }

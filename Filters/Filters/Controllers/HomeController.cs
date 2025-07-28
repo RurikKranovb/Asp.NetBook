@@ -6,7 +6,8 @@ namespace Filters.Controllers
 
     //[HttpsOnly]
 
-    [ViewResultDetails]
+    //[ViewResultDetails]
+    [Profile]
     public class HomeController : Controller
     {
 
