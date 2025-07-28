@@ -1,3 +1,5 @@
+using Filters.Infrastructure;
+
 namespace Filters
 {
     public class Program
@@ -6,10 +8,15 @@ namespace Filters
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
+            builder.Services.AddScoped<IFilterDiagnostics, DefaultFilterDiagnostics>();
+
             // Add services to the container.
             builder.Services.AddMemoryCache();
             builder.Services.AddSession();
             builder.Services.AddRazorPages();
+
+
 
             var app = builder.Build();
 
