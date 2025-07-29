@@ -9,7 +9,10 @@ namespace Filters
             var builder = WebApplication.CreateBuilder(args);
 
 
-            builder.Services.AddScoped<IFilterDiagnostics, DefaultFilterDiagnostics>();
+            //builder.Services.AddScoped<IFilterDiagnostics, DefaultFilterDiagnostics>();
+
+            builder.Services.AddSingleton<IFilterDiagnostics, DefaultFilterDiagnostics>();
+            builder.Services.AddSingleton<TimerFilter>();
 
             // Add services to the container.
             builder.Services.AddMemoryCache();

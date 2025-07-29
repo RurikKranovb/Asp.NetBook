@@ -10,7 +10,8 @@ namespace Filters.Controllers
     //[Profile]
     //[RangeException]
     [TypeFilter(typeof(DiagnosticsFilter))]
-    [TypeFilter(typeof(TimerFilter))]
+    //[TypeFilter(typeof(TimerFilter))]
+    [ServiceFilter(typeof(TimerFilter))]
     public class HomeController : Controller
     {
 
