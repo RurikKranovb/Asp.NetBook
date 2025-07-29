@@ -9,15 +9,24 @@ namespace Filters
             var builder = WebApplication.CreateBuilder(args);
 
 
-            //builder.Services.AddScoped<IFilterDiagnostics, DefaultFilterDiagnostics>();
+            builder.Services.AddScoped<IFilterDiagnostics, DefaultFilterDiagnostics>();
+            builder.Services.AddScoped<TimerFilter>();
+            builder.Services.AddScoped<ViewResultDiagnostics>();
+            builder.Services.AddScoped<DiagnosticsFilter>();
+            
 
-            builder.Services.AddSingleton<IFilterDiagnostics, DefaultFilterDiagnostics>();
-            builder.Services.AddSingleton<TimerFilter>();
+            //builder.Services.AddSingleton<IFilterDiagnostics, DefaultFilterDiagnostics>();
+            //builder.Services.AddSingleton<TimerFilter>();
 
             // Add services to the container.
             builder.Services.AddMemoryCache();
             builder.Services.AddSession();
             builder.Services.AddRazorPages();
+            builder.Services.AddControllersWithViews(opt =>
+            {
+                opt.Filters.AddService(typeof(ViewResultDiagnostics));
+                opt.Filters.AddService(typeof(DiagnosticsFilter));
+            });
 
 
 
