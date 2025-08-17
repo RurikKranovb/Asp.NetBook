@@ -39,6 +39,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Filters", "Filters\Filters\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Filters.Tests", "Filters\Filters.Tests\Filters.Tests.csproj", "{5E0F1D4E-9372-701C-67F5-CC8287B87C81}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ControllerAPI", "ControllerAPI", "{B5D1B244-3ABD-4368-91AA-250F16C9A26E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControllersApi", "ControllerAPI\ControllersApi\ControllersApi.csproj", "{719E14DA-7127-4EBA-BD3A-35D9E419D44D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +93,10 @@ Global
 		{5E0F1D4E-9372-701C-67F5-CC8287B87C81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E0F1D4E-9372-701C-67F5-CC8287B87C81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E0F1D4E-9372-701C-67F5-CC8287B87C81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{719E14DA-7127-4EBA-BD3A-35D9E419D44D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{719E14DA-7127-4EBA-BD3A-35D9E419D44D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{719E14DA-7127-4EBA-BD3A-35D9E419D44D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{719E14DA-7127-4EBA-BD3A-35D9E419D44D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,6 +112,7 @@ Global
 		{B2BA4A42-1A57-4509-AEC7-1AA610ABD5A9} = {07D2B0C1-7038-4DE5-8888-115B0DFE8CF7}
 		{3EFE3C52-A465-4F6E-948D-C7B836AAFCAD} = {B922EDAC-30A2-40C6-A14B-CFF55566A521}
 		{5E0F1D4E-9372-701C-67F5-CC8287B87C81} = {B922EDAC-30A2-40C6-A14B-CFF55566A521}
+		{719E14DA-7127-4EBA-BD3A-35D9E419D44D} = {B5D1B244-3ABD-4368-91AA-250F16C9A26E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E36E670E-FC7B-4ED0-ADEB-0274528E8EED}

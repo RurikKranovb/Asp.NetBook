@@ -9,9 +9,9 @@ namespace Filters.Tests
 {
     public class FiltersTest
     {
-        [Fact]
-        public void TestHttpsFilter()
-        {
+        //[Fact]
+        //public void TestHttpsFilter()
+        //{
             ////Организация
             //var httpRequest = new Mock<HttpRequest>();
             //httpRequest.SetupSequence(m => m.IsHttps).Returns(true).Returns(false);
@@ -34,6 +34,6 @@ namespace Filters.Tests
             //Assert.IsType(typeof(StatusCodeResult), authContext.Result);
             //Assert.Equal(StatusCodes.Status403Forbidden, (authContext.Result as StatusCodeResult).StatusCode);
 
-        }
+        //}
     }
 }
