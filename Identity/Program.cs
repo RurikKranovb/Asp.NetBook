@@ -16,11 +16,22 @@ namespace Identity
 
 
             builder.Services.AddTransient<IPasswordValidator<AppUser>, CustomPasswordValidation>();
+            builder.Services.AddTransient<IUserValidator<AppUser>, CustomUserValidator>();
 
             builder.Services.AddDbContext<AppIdentityDbContext>(opt =>
                 opt.UseSqlServer(connectionString));
 
-            builder.Services.AddIdentity<AppUser, IdentityRole>()
+            builder.Services.AddIdentity<AppUser, IdentityRole>(opt =>
+                {
+                    //opt.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz";
+                    opt.User.RequireUniqueEmail = true;
+                    opt.Password.RequiredLength = 6;
+                    opt.Password.RequireNonAlphanumeric = false;
+                    opt.Password.RequireDigit = false;
+                    opt.Password.RequireLowercase = false;
+                    opt.Password.RequireUppercase = false;
+
+                })
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
 
